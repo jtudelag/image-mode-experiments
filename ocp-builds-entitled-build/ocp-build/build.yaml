@@ -1,0 +1,27 @@
+---
+apiVersion: shipwright.io/v1beta1
+kind: Build
+metadata:
+  name: buildah-rhel
+spec:
+  source:
+    type: Git
+      git:
+      url: https://github.com/jtudelag/image-mode-experiments
+    contextDir: ocp-builds-entitled-build
+  strategy:
+    name: buildah
+    kind: ClusterBuildStrategy
+  paramValues:
+  - name: dockerfile
+    value: Containerfile
+  volumes:
+  - csi:
+      driver: csi.sharedresource.openshift.io
+      readOnly: true
+      volumeAttributes:
+        sharedSecret: etc-pki-entitlement
+    name: etc-pki-entitlement
+  output:
+    image: image-registry.openshift-image-registry.svc:5000/jorge-builds/test-ocp:v1
+...

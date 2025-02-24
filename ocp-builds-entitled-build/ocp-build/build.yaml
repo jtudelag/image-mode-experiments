@@ -6,7 +6,7 @@ metadata:
 spec:
   source:
     type: Git
-      git:
+    git:
       url: https://github.com/jtudelag/image-mode-experiments
     contextDir: ocp-builds-entitled-build
   strategy:
